@@ -24,7 +24,23 @@ static char	*gnl_read_and_join(char *saved, int fd)
 }
 
 char	*get_next_line(int fd)
-{
+{ 
+    static char *saved[MAX_FD];
+
+    if (!fd || BUFFER_SIZE <= 0)
+        return (NULL);
+    if (!saved[fd])
+    {
+        saved[fd] = malloc(sizeof(char) * BUFFER_SIZE + 1);
+        if (!saved[fd])
+            return (NULL);
+        saved[fd][0] = '\0';
+    }
+    while(saved[fd] != '\n')
+        gnl_read_and_join(saved[fd], fd);
+    
+
+    
     /*
     Devuelve NULL si hay error o EOF sin más líneas.
     Devuelve una línea (malloc) si todo va bien.

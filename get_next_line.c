@@ -1,6 +1,6 @@
 #include "get_next_line.h"
 
-static char *gnl_update_saved(char *saved)
+char *gnl_update_saved(char *saved)
 {
     char *new_from_left;
     char *remain;
@@ -32,7 +32,7 @@ Recibe saved que tiene "línea\nresto"
 Extrae "resto" (lo después del \n)
 Devuelve "resto" con malloc
 */
-static void	gnl_free_and_null(char **ptr)
+void	gnl_free_and_null(char **ptr)
 {
     if (ptr)
     {
@@ -48,7 +48,7 @@ el puntero a liberar
 no solo un local
 */
 
-static char	*gnl_get_line_from_saved(char *saved)
+char	*gnl_get_line_from_saved(char *saved)
 {
     char *new_line;
     size_t len;
@@ -79,7 +79,7 @@ Extrae la parte hasta el primer \n y devuelve esa línea (malloc).
 Si no hay \n, devuelve NULL.
 */
 
-static char	*gnl_read_and_join(char *saved, int fd)
+char	*gnl_read_and_join(char *saved, int fd)
 {
     int n;
     char *temp;

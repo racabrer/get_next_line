@@ -1,26 +1,30 @@
-#ifndef GET_NEXT_LINE
-#define GET_NEXT_LINE
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
-# define BUFFER_SIZE 42
-#ifndef MAX_FD
-# define MAX_FD 1024
-#endif
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
-static char     *gnl_update_saved(char *saved);
-static void     gnl_free_and_null(char **ptr);
-static char     *gnl_get_line_from_saved(char *saved);
-static char     *gnl_read_and_join(char *saved, int fd);
-char            *get_next_line(int fd);
-static char     *ft_strcpy(char *dest, char *src);
-char            *ft_strjoin(const char *s1, const char *s2);
-size_t          ft_strlen(const char *s);
-char            *ft_strchr(const char *s, int c);
+# ifndef MAX_FD
+#  define MAX_FD 1024
+# endif
 
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
 
+/* Tus funciones auxiliares (Ahora públicas, sin static) */
+char	*gnl_update_saved(char *saved);
+void	gnl_free_and_null(char **ptr);
+char	*gnl_get_line_from_saved(char *saved);
+char	*gnl_read_and_join(char *saved, int fd);
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
+/* Función principal */
+char	*get_next_line(int fd);
 
+/* Funciones de tus Utils */
+char	*ft_strjoin(const char *s1, const char *s2);
+size_t	ft_strlen(const char *s);
+char	*ft_strchr(const char *s, int c);
 
 #endif

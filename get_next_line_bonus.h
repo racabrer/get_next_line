@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: raqcabre <raqcabre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/09 16:05:54 by raqcabre          #+#    #+#             */
-/*   Updated: 2026/06/09 16:05:55 by raqcabre         ###   ########.fr       */
+/*   Created: 2026/06/09 16:22:40 by raqcabre          #+#    #+#             */
+/*   Updated: 2026/06/09 16:22:42 by raqcabre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,15 @@
 #  define MAX_FD 1024
 # endif
 
-# include <unistd.h>
-# include <stdlib.h>
 # include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
 
-/* Tus funciones auxiliares (Ahora públicas, sin static) */
 char	*gnl_update_saved(char *saved);
 void	gnl_free_and_null(char **ptr);
 char	*gnl_get_line_from_saved(char *saved);
 char	*gnl_read_and_join(char *saved, int fd);
-
-/* Función principal */
 char	*get_next_line(int fd);
-
-/* Funciones de tus Utils */
 char	*ft_strjoin(const char *s1, const char *s2);
 size_t	ft_strlen(const char *s);
 char	*ft_strchr(const char *s, int c);

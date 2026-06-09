@@ -6,7 +6,7 @@
 /*   By: raqcabre <raqcabre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 16:06:18 by raqcabre          #+#    #+#             */
-/*   Updated: 2026/06/09 16:06:19 by raqcabre         ###   ########.fr       */
+/*   Updated: 2026/06/09 16:20:20 by raqcabre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*gnl_update_saved(char *saved)
 	new_from_left = ft_strchr(saved, '\n');
 	if (!new_from_left)
 		return (NULL);
-	new_from_left++; // Avanzamos para saltar '\n'
+	new_from_left++;
 	if (!new_from_left)
 		return (NULL);
 	if (*new_from_left == '\0')
@@ -38,11 +38,7 @@ char	*gnl_update_saved(char *saved)
 	remain[i] = '\0';
 	return (remain);
 }
-/*
-Recibe saved que tiene "línea\nresto"
-Extrae "resto" (lo después del \n)
-Devuelve "resto" con malloc
-*/
+
 void	gnl_free_and_null(char **ptr)
 {
 	if (ptr)
@@ -51,13 +47,6 @@ void	gnl_free_and_null(char **ptr)
 		*ptr = NULL;
 	}
 }
-/*
-- Recibes un puntero a puntero (char **ptr) porque:
-- ptr es la dirección de la variable que contiene
-el puntero a liberar
-- Al hacer *ptr = NULL, modificas la variable original,
-no solo un local
-*/
 
 char	*gnl_get_line_from_saved(char *saved)
 {
@@ -84,11 +73,6 @@ char	*gnl_get_line_from_saved(char *saved)
 	new_line[len] = '\0';
 	return (new_line);
 }
-/*
-Recibe saved.
-Extrae la parte hasta el primer \n y devuelve esa línea (malloc).
-Si no hay \n, devuelve NULL.
-*/
 
 char	*gnl_read_and_join(char *saved, int fd)
 {
@@ -114,9 +98,7 @@ char	*gnl_read_and_join(char *saved, int fd)
 	}
 	return (saved);
 }
-/*
-Verificar el subjet por si en la función read and join Si el subject dice que al EOF sin \n debes liberar saved y devolver NULL → entonces sería free(saved); return (NULL);
-*/
+
 char	*get_next_line(int fd)
 {
 	static char	*saved[MAX_FD];
@@ -143,11 +125,8 @@ char	*get_next_line(int fd)
 	saved[fd] = remaining;
 	return (line);
 }
-/*
-Devuelve NULL si hay error o EOF sin más líneas.
-Devuelve una línea (malloc) si todo va bien.
-*/
 
+/*
 #include "get_next_line.h"
 #include <fcntl.h>
 #include <stdio.h>
@@ -159,7 +138,6 @@ int	main(void)
 	char *line;
 	int line_count;
 
-	// Abrimos un archivo en modo lectura
 	fd = open("prueba.txt", O_RDONLY);
 	if (fd == -1)
 	{
@@ -178,4 +156,4 @@ int	main(void)
 
 	close(fd);
 	return (0);
-}
+}*/

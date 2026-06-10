@@ -6,7 +6,7 @@
 /*   By: raqcabre <raqcabre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 16:06:23 by raqcabre          #+#    #+#             */
-/*   Updated: 2026/06/09 16:31:00 by raqcabre         ###   ########.fr       */
+/*   Updated: 2026/06/10 18:37:19 by raqcabre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,11 @@
 #  define MAX_FD 1024
 # endif
 
-# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 
 char	*gnl_update_saved(char *saved);
-void	gnl_free_and_null(char **ptr);
+void    *free_two_and_null(void *a, void *b);
 char	*gnl_get_line_from_saved(char *saved);
 char	*gnl_read_and_join(char *saved, int fd);
 char	*get_next_line(int fd);

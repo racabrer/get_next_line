@@ -6,7 +6,7 @@
 /*   By: raqcabre <raqcabre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 16:06:18 by raqcabre          #+#    #+#             */
-/*   Updated: 2026/06/10 15:55:53 by raqcabre         ###   ########.fr       */
+/*   Updated: 2026/06/10 18:27:04 by raqcabre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,11 @@ char	*gnl_update_saved(char *saved)
 	return (remain);
 }
 
-void	gnl_free_and_null(char **ptr)
+void *free_two_and_null(void *a, void *b)
 {
-	if (ptr)
-	{
-		free(*ptr);
-		*ptr = NULL;
-	}
+    free(a);
+    free(b);
+    return (NULL);
 }
 
 char	*gnl_get_line_from_saved(char *saved)
@@ -74,56 +72,85 @@ char	*gnl_get_line_from_saved(char *saved)
 	return (new_line);
 }
 
-char	*gnl_read_and_join(char *saved, int fd)
+char    *gnl_read_and_join(char *saved, int fd)
 {
-	int		n;
-	char	*temp;
-	char	buf[BUFFER_SIZE + 1];
+    int     n;
+    char    *temp;
+    char    *buf;
 
-	n = 1;
-	while (n > 0 && ft_strchr(saved, '\n') == NULL)
-	{
-		n = read(fd, buf, BUFFER_SIZE);
-		if (n < 0)
-		{
-			free(saved);
-			return (NULL);
-		}
-		if (n == 0)
-			break ;
-		buf[n] = '\0';
-		temp = ft_strjoin(saved, buf);
-		free(saved);
-		saved = temp;
-	}
-	return (saved);
+    buf = malloc(BUFFER_SIZE + 1);
+    if (!buf)
+        return (NULL);
+    n = 1;
+    while (n > 0 && ft_strchr(saved, '\n') == NULL)
+    {
+        n = read(fd, buf, BUFFER_SIZE);
+        if (n < 0)
+			return (free_two_and_null(buf, saved));
+        if (n == 0)
+            break;
+        buf[n] = '\0';
+        temp = ft_strjoin(saved, buf);
+        if (!temp)
+			return (free_two_and_null(buf, saved));
+        free(saved);
+        saved = temp;
+    }
+    return (free(buf), saved);
 }
+
+// char	*gnl_read_and_join(char *saved, int fd)
+// {
+// 	int		n;
+// 	char	*temp;
+// 	char	buf[BUFFER_SIZE + 1];
+
+// 	n = 1;
+// 	while (n > 0 && ft_strchr(saved, '\n') == NULL)
+// 	{
+// 		n = read(fd, buf, BUFFER_SIZE);
+// 		if (n < 0)
+// 		{
+// 			free(saved);
+// 			return (NULL);
+// 		}
+// 		if (n == 0)
+// 			break ;
+// 		buf[n] = '\0';
+// 		temp = ft_strjoin(saved, buf);
+// 		free(saved);
+// 		saved = temp;
+// 	}
+// 	return (saved);
+// }
 
 char	*get_next_line(int fd)
 {
-	static char	*saved[MAX_FD];
+	static char	*saved;
 	char		*line;
 	char		*remaining;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= MAX_FD)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!saved[fd])
+	if (!saved)
 	{
-		saved[fd] = malloc(1);
-		if (!saved[fd])
+		saved = malloc(1);
+		if (!saved)
 			return (NULL);
-		saved[fd][0] = '\0';
+		saved[0] = '\0';
 	}
-	saved[fd] = gnl_read_and_join(saved[fd], fd);
-	if (!saved[fd])
+	saved = gnl_read_and_join(saved, fd);
+	if (!saved)
 		return (NULL);
-	line = gnl_get_line_from_saved(saved[fd]);
+	line = gnl_get_line_from_saved(saved);
 	if (!line)
-		return (free(saved[fd]), (saved[fd] = NULL));
-	remaining = gnl_update_saved(saved[fd]);
-	free(saved[fd]);
-	saved[fd] = remaining;
-	return (line);
+	{
+    	free(saved);
+    	return (saved = NULL, NULL);
+	}
+	remaining = gnl_update_saved(saved);
+	free(saved);
+	return (saved = remaining, line);
 }
 
 /*

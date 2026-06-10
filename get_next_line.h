@@ -25,7 +25,7 @@
 # include <unistd.h>
 
 char	*gnl_update_saved(char *saved);
-void    *free_two_and_null(void *a, void *b);
+void	*free_two_and_null(void *a, void *b);
 char	*gnl_get_line_from_saved(char *saved);
 char	*gnl_read_and_join(char *saved, int fd);
 char	*get_next_line(int fd);

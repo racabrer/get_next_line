@@ -6,7 +6,7 @@
 /*   By: raqcabre <raqcabre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 16:24:21 by raqcabre          #+#    #+#             */
-/*   Updated: 2026/06/10 18:35:17 by raqcabre         ###   ########.fr       */
+/*   Updated: 2026/06/10 18:38:33 by raqcabre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ char	*gnl_update_saved(char *saved)
 	return (remain);
 }
 
-void *free_two_and_null(void *a, void *b)
+void	*free_two_and_null(void *a, void *b)
 {
-    free(a);
-    free(b);
-    return (NULL);
+	free(a);
+	free(b);
+	return (NULL);
 }
 
 char	*gnl_get_line_from_saved(char *saved)
@@ -71,58 +71,33 @@ char	*gnl_get_line_from_saved(char *saved)
 	new_line[len] = '\0';
 	return (new_line);
 }
-/*
+
 char	*gnl_read_and_join(char *saved, int fd)
 {
 	int		n;
 	char	*temp;
-	char	buf[BUFFER_SIZE + 1];
+	char	*buf;
 
+	buf = malloc(BUFFER_SIZE + 1);
+	if (!buf)
+		return (NULL);
 	n = 1;
 	while (n > 0 && ft_strchr(saved, '\n') == NULL)
 	{
 		n = read(fd, buf, BUFFER_SIZE);
 		if (n < 0)
-		{
-			free(saved);
-			return (NULL);
-		}
+			return (free_two_and_null(buf, saved));
 		if (n == 0)
 			break ;
 		buf[n] = '\0';
 		temp = ft_strjoin(saved, buf);
+		if (!temp)
+			return (free_two_and_null(buf, saved));
 		free(saved);
 		saved = temp;
 	}
+	free(buf);
 	return (saved);
-}*/
-
-char    *gnl_read_and_join(char *saved, int fd)
-{
-    int     n;
-    char    *temp;
-    char    *buf;
-
-    buf = malloc(BUFFER_SIZE + 1);
-    if (!buf)
-        return (NULL);
-    n = 1;
-    while (n > 0 && ft_strchr(saved, '\n') == NULL)
-    {
-        n = read(fd, buf, BUFFER_SIZE);
-        if (n < 0)
-            return (free_two_and_null(buf, saved));
-        if (n == 0)
-            break;
-        buf[n] = '\0';
-        temp = ft_strjoin(saved, buf);
-        if (!temp)
-			return (free_two_and_null(buf, saved));
-        free(saved);
-        saved = temp;
-    }
-    free(buf);
-    return (saved);
 }
 
 char	*get_next_line(int fd)

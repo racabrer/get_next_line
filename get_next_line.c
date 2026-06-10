@@ -6,7 +6,7 @@
 /*   By: raqcabre <raqcabre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 16:06:18 by raqcabre          #+#    #+#             */
-/*   Updated: 2026/06/09 18:21:23 by raqcabre         ###   ########.fr       */
+/*   Updated: 2026/06/10 15:55:53 by raqcabre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ int	main(void)
 	while ((line = get_next_line(fd)) != NULL)
 	{
 		printf("Línea %d: %s", line_count, line);
-		free(line); // ¡Muy importante liberar la memoria que asignaste!
+		free(line);
 		line_count++;
 	}
 

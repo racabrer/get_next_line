@@ -6,7 +6,7 @@
 /*   By: raquelcabrerorouco <raquelcabrerorouco@    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 16:06:18 by raqcabre          #+#    #+#             */
-/*   Updated: 2026/06/13 19:49:11 by raquelcabre      ###   ########.fr       */
+/*   Updated: 2026/06/13 20:42:56 by raquelcabre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ char	*get_next_line(int fd)
 	free(saved);
 	return (saved = remaining, line);
 }
-
+/*
 #include "get_next_line.h"
 #include <fcntl.h>
 #include <stdio.h>
@@ -158,3 +158,4 @@ int	main(void)
 	close(fd);
 	return (0);
 }
+*/

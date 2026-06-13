@@ -6,7 +6,7 @@
 /*   By: raquelcabrerorouco <raquelcabrerorouco@    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 16:24:21 by raqcabre          #+#    #+#             */
-/*   Updated: 2026/06/13 19:47:46 by raquelcabre      ###   ########.fr       */
+/*   Updated: 2026/06/13 20:34:53 by raquelcabre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,33 +128,72 @@ char	*get_next_line(int fd)
 }
 
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
 
-int	main(void)
+int main(void)
 {
-	int fd;
-	char *line;
-	int line_count;
+    int fd1, fd2, fd3;
+    char *line;
 
-	fd = open("empty.txt", O_RDONLY);
-	if (fd == -1)
-	{
-		printf("Error al abrir el archivo\n");
-		return (1);
-	}
+    // Abrir 3 archivos diferentes
+    fd1 = open("archivo1.txt", O_RDONLY);
+    fd2 = open("archivo2.txt", O_RDONLY);
+    fd3 = open("archivo3.txt", O_RDONLY);
 
-	line_count = 1;
-	// Llamamos a tu función en un bucle hasta que devuelva NULL
-	while ((line = get_next_line(fd)) != NULL)
-	{
-		printf("Línea %d: %s", line_count, line);
-		free(line);
-		line_count++;
-	}
+    if (fd1 == -1 || fd2 == -1 || fd3 == -1)
+    {
+        printf("Error al abrir archivos\n");
+        return (1);
+    }
 
-	close(fd);
-	return (0);
+    // Alternar llamadas entre fd1, fd2, fd3
+    printf("=== fd1 línea 1 ===\n");
+    line = get_next_line(fd1);
+    if (line) printf("%s\n", line), free(line);
+
+    printf("=== fd2 línea 1 ===\n");
+    line = get_next_line(fd2);
+    if (line) printf("%s\n", line), free(line);
+
+    printf("=== fd3 línea 1 ===\n");
+    line = get_next_line(fd3);
+    if (line) printf("%s\n", line), free(line);
+
+    printf("=== fd1 línea 2 ===\n");
+    line = get_next_line(fd1);
+    if (line) printf("%s\n", line), free(line);
+
+    printf("=== fd2 línea 2 ===\n");
+    line = get_next_line(fd2);
+    if (line) printf("%s\n", line), free(line);
+
+    // Leer todo fd1 hasta el final
+    while ((line = get_next_line(fd1)) != NULL)
+    {
+        printf("fd1 resto: %s\n", line);
+        free(line);
+    }
+
+    // Leer todo fd2 hasta el final
+    while ((line = get_next_line(fd2)) != NULL)
+    {
+        printf("fd2 resto: %s\n", line);
+        free(line);
+    }
+
+    // Leer todo fd3 hasta el final
+    while ((line = get_next_line(fd3)) != NULL)
+    {
+        printf("fd3 resto: %s\n", line);
+        free(line);
+    }
+
+    close(fd1);
+    close(fd2);
+    close(fd3);
+
+    return (0);
 }

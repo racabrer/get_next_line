@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raqcabre <raqcabre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raquelcabrerorouco <raquelcabrerorouco@    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 16:24:21 by raqcabre          #+#    #+#             */
-/*   Updated: 2026/06/10 18:38:33 by raqcabre         ###   ########.fr       */
+/*   Updated: 2026/06/13 19:47:46 by raquelcabre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	*gnl_read_and_join(char *saved, int fd)
 
 	buf = malloc(BUFFER_SIZE + 1);
 	if (!buf)
-		return (NULL);
+		return (free(saved), NULL);
 	n = 1;
 	while (n > 0 && ft_strchr(saved, '\n') == NULL)
 	{
@@ -125,4 +125,36 @@ char	*get_next_line(int fd)
 	free(saved[fd]);
 	saved[fd] = remaining;
 	return (line);
+}
+
+
+#include "get_next_line.h"
+#include <fcntl.h>
+#include <stdio.h>
+#include <unistd.h>
+
+int	main(void)
+{
+	int fd;
+	char *line;
+	int line_count;
+
+	fd = open("empty.txt", O_RDONLY);
+	if (fd == -1)
+	{
+		printf("Error al abrir el archivo\n");
+		return (1);
+	}
+
+	line_count = 1;
+	// Llamamos a tu función en un bucle hasta que devuelva NULL
+	while ((line = get_next_line(fd)) != NULL)
+	{
+		printf("Línea %d: %s", line_count, line);
+		free(line);
+		line_count++;
+	}
+
+	close(fd);
+	return (0);
 }

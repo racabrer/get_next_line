@@ -48,7 +48,7 @@ Ejemplo leyendo desde stdin:
 
     bash
 
-    ./gnl_testEscribe algunas líneasy pulsa Ctrl+D (Linux/macOS) o Ctrl+Z (Windows + Enter) para EOF
+    ./gnl_testEscribe algunas líneas y pulsa Ctrl+D (Linux/macOS) o Ctrl+Z (Windows + Enter) para EOF
  
 Ejemplo de uso:
 

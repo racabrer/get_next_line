@@ -135,9 +135,9 @@ char	*get_next_line(int fd)
 
 int	main(void)
 {
-	int fd;
-	char *line;
-	int line_count;
+	int		fd;
+	char	*line;
+	int		line_count;
 
 	fd = open("empty.txt", O_RDONLY);
 	if (fd == -1)
@@ -145,7 +145,6 @@ int	main(void)
 		printf("Error al abrir el archivo\n");
 		return (1);
 	}
-
 	line_count = 1;
 	// Llamamos a tu función en un bucle hasta que devuelva NULL
 	while ((line = get_next_line(fd)) != NULL)
@@ -154,7 +153,6 @@ int	main(void)
 		free(line);
 		line_count++;
 	}
-
 	close(fd);
 	return (0);
 }

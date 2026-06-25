@@ -133,57 +133,33 @@ char	*get_next_line(int fd)
 #include <stdio.h>
 #include <unistd.h>
 
-int	main(void)
+int main(int argc, char **argv)
 {
-	char	*line;
+int fd1;
+int fd2;
+char *line1;
+char *line2;
 
-	int fd1, fd2, fd3;
-	// Abrir 3 archivos diferentes
-	fd1 = open("archivo1.txt", O_RDONLY);
-	fd2 = open("archivo2.txt", O_RDONLY);
-	fd3 = open("archivo3.txt", O_RDONLY);
-	if (fd1 == -1 || fd2 == -1 || fd3 == -1)
-	{
-		printf("Error al abrir archivos\n");
-		return (1);
-	}
-	// Alternar llamadas entre fd1, fd2, fd3
-	printf("=== fd1 línea 1 ===\n");
-	line = get_next_line(fd1);
-	if (line) printf("%s\n", line), free(line);
-	printf("=== fd2 línea 1 ===\n");
-	line = get_next_line(fd2);
-	if (line) printf("%s\n", line), free(line);
-	printf("=== fd3 línea 1 ===\n");
-	line = get_next_line(fd3);
-	if (line) printf("%s\n", line), free(line);
-	printf("=== fd1 línea 2 ===\n");
-	line = get_next_line(fd1);
-	if (line) printf("%s\n", line), free(line);
-	printf("=== fd2 línea 2 ===\n");
-	line = get_next_line(fd2);
-	if (line) printf("%s\n", line), free(line);
-	// Leer todo fd1 hasta el final
-	while ((line = get_next_line(fd1)) != NULL)
-	{
-		printf("fd1 resto: %s\n", line);
-		free(line);
-	}
-	// Leer todo fd2 hasta el final
-	while ((line = get_next_line(fd2)) != NULL)
-	{
-		printf("fd2 resto: %s\n", line);
-		free(line);
-	}
-	// Leer todo fd3 hasta el final
-	while ((line = get_next_line(fd3)) != NULL)
-	{
-		printf("fd3 resto: %s\n", line);
-		free(line);
-	}
-	close(fd1);
-	close(fd2);
-	close(fd3);
-	return (0);
+if (argc != 3)
+return (1);
+fd1 = open(argv[1], O_RDONLY);
+fd2 = open(argv[2], O_RDONLY);
+if (fd1 == -1 || fd2 == -1)
+return (1);
+line1 = get_next_line(fd1);
+line2 = get_next_line(fd2);
+if (line1)
+{
+printf("[fd1] %s", line1);
+free(line1);
+}
+if (line2)
+{
+printf("[fd2] %s", line2);
+free(line2);
+}
+close(fd1);
+close(fd2);
+return (0);
 }
 */

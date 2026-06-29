@@ -126,7 +126,7 @@ char	*get_next_line(int fd)
 	saved[fd] = remaining;
 	return (line);
 }
-
+/*
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -171,4 +171,4 @@ int	main(int argc, char **argv)
 	close(fd1);
 	close(fd2);
 	return (0);
-}
+}*/

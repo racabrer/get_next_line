@@ -127,39 +127,48 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-/*
-#include "get_next_line_bonus.h"
 #include <fcntl.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-int fd1;
-int fd2;
-char *line1;
-char *line2;
+	int		fd1;
+	int		fd2;
+	char	*line1;
+	char	*line2;
 
-if (argc != 3)
-return (1);
-fd1 = open(argv[1], O_RDONLY);
-fd2 = open(argv[2], O_RDONLY);
-if (fd1 == -1 || fd2 == -1)
-return (1);
-line1 = get_next_line(fd1);
-line2 = get_next_line(fd2);
-if (line1)
-{
-printf("[fd1] %s", line1);
-free(line1);
+	if (argc != 3)
+		return (1);
+	fd1 = open(argv[1], O_RDONLY);
+	fd2 = open(argv[2], O_RDONLY);
+	if (fd1 == -1 || fd2 == -1)
+	{
+		if (fd1 != -1)
+			close(fd1);
+		if (fd2 != -1)
+			close(fd2);
+		return (1);
+	}
+	line1 = get_next_line(fd1);
+	line2 = get_next_line(fd2);
+	while (line1 || line2)
+	{
+		if (line1)
+		{
+			printf("[fd1] %s", line1);
+			free(line1);
+			line1 = get_next_line(fd1);
+		}
+		if (line2)
+		{
+			printf("[fd2] %s", line2);
+			free(line2);
+			line2 = get_next_line(fd2);
+		}
+	}
+	close(fd1);
+	close(fd2);
+	return (0);
 }
-if (line2)
-{
-printf("[fd2] %s", line2);
-free(line2);
-}
-close(fd1);
-close(fd2);
-return (0);
-}
-*/
